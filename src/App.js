@@ -3,6 +3,10 @@ import './App.css';
 import {useState} from "react";
 
 function App() {
+  const [movies, setMovies] = useState([
+    { title: "LOTR"}, 
+    { title: "Star Wars"}
+  ]);
   const [currentTitle, setTitle] = useState("The Matrix");
   const [year, setYear] = useState("1999");
   let msg = '';
@@ -14,7 +18,6 @@ function App() {
   function onTitleChange(event) {
     setTitle(event.target.value);
     console.log(event.target.value);
-    // console.log(msg);
   }
 
 
@@ -26,6 +29,12 @@ function App() {
     }
   }
 
+  function addMovie(event) {
+    let newMovie = {title: currentTitle};
+    setMovies([...movies, newMovie])
+    console.log('movie added')
+  }
+
   return (
     <div className="App">
       <div className="App-header">
@@ -35,7 +44,9 @@ function App() {
 
       <div class="column column-30">
           <p>Movies</p>
-          <ul id="movie-list"></ul>
+          <ul id="movie-list">
+            {movies.map(movie => <li key= {movie.title}>{movie.title}</li>)}
+          </ul>
           
       </div>
 
@@ -48,7 +59,7 @@ function App() {
               <label>Year</label>
               <input type="text" id="year-inpt" value={year} onChange={onYearChange}/> 
           </div>
-          <button id="add-btn" onClick={() => alert(msg)}>Add</button>
+          <button id="add-btn" onClick={addMovie}>Add</button>
       </div>
     </div>
   );
