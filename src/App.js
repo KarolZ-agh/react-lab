@@ -24,16 +24,25 @@ function App() {
 
   function onYearChange(event) {
     let newValue = event.target.value;
-    if (newValue.length >= 4) {
-      setYear(event.target.value);
-      console.log(event.target.value);
-    }
+    setYear(event.target.value);
+    console.log(event.target.value);
   }
 
-  function addMovie(event) {
+  function handleAddMovie(event) {
+    if (!isValid(currentTitle)) {
+      alert("Incorrect value");
+      return;
+  }
     let newMovie = {title: currentTitle};
     setMovies([...movies, newMovie])
     console.log('movie added')
+
+    setTitle('');
+    setYear('');
+  }
+
+  function isValid(value) {
+    return !(value == '' || value == undefined || value.length < 3)
   }
 
   return (
@@ -46,7 +55,7 @@ function App() {
       <div class="column column-30">
           <h1>Movies</h1>
           <ul id="movie-list">
-            {movies.map(movie => <li key= {movie.title}>{movie.title}</li>)}
+            {movies.map(movie => <li key= {movie.title}>{movie.title}<button>Delete</button></li>)}
           </ul>
           
       </div>
@@ -60,7 +69,7 @@ function App() {
               <label>Year</label>
               <input type="text" id="year-inpt" value={year} onChange={onYearChange}/> 
           </div>
-          <button id="add-btn" onClick={addMovie}>Add</button>
+          <button id="add-btn" onClick={handleAddMovie}>Add</button>
       </div>
     </div>
   );
