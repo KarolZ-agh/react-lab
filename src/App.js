@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {useState} from "react";
+import "milligram"
 
 function App() {
   const [movies, setMovies] = useState([
@@ -43,7 +44,7 @@ function App() {
       </div>
 
       <div class="column column-30">
-          <p>Movies</p>
+          <h1>Movies</h1>
           <ul id="movie-list">
             {movies.map(movie => <li key= {movie.title}>{movie.title}</li>)}
           </ul>
